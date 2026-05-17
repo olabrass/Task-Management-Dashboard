@@ -1,6 +1,47 @@
+import {useState} from 'React';
+import Dashboard from './Dashboard'
+
+const Form = ({setTasks}) => {
+
+const [formData, setFormData] = useState({
+  title:'',
+  description:'',
+  priority:'Low',
+  date: '',
+  status:'Todo'
+})
+
+const handleChange = (e) => {
+  setFormData({
+      ...formData,
+  [e.target.name]: e.target.value
+  })
+}
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  //Create new task object
+  const newTask = {id: Date.now(), ...formData};
+
+  //Set task List
+ // setTasks([newTask, ...tasks]);
+  setTasks((prevTasks) => [newTask, ...prevTasks]);
 
 
-const Form = () => {
+
+  //Resest form data
+  setFormData({
+      title:'',
+  description:'',
+  priority:'Low',
+  date:'',
+  status:'Todo'
+  })
+
+  window.alert('Task added successfully')
+}
+
   return (
     <>
         <div className="bg-white rounded-2xl shadow-lg p-5 h-fit">
@@ -14,7 +55,7 @@ const Form = () => {
             </button>
           </div>
 
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
 
             {/* Task Title */}
             <div>
@@ -24,9 +65,13 @@ const Form = () => {
 
               <input
                 type="text"
+                name='title'
+                value={formData.title}
+                onChange={handleChange}
                 placeholder="Enter task title"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
+              {formData.title}
             </div>
 
             {/* Description */}
@@ -36,10 +81,14 @@ const Form = () => {
               </label>
 
               <textarea
+                name='description'
+                value={formData.description}
+                onChange={handleChange}
                 rows="4"
                 placeholder="Enter task description"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               ></textarea>
+              {formData.description}
             </div>
 
             {/* Priority */}
@@ -48,11 +97,16 @@ const Form = () => {
                 Priority
               </label>
 
-              <select className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
+              <select 
+              name='priority'
+              onChange={handleChange}
+              value={formData.priority}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
+                <option value='Low'>Low</option>
+                <option value='Medium'>Medium</option>
+                <option value='High'>High</option>
               </select>
+              {formData.priority}
             </div>
 
             {/* Due Date */}
@@ -63,8 +117,12 @@ const Form = () => {
 
               <input
                 type="date"
+                name='date'
+                value={formData.date}
+                onChange={handleChange}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
+              {formData.date}
             </div>
 
             {/* Status */}
@@ -73,11 +131,16 @@ const Form = () => {
                 Task Status
               </label>
 
-              <select className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Todo</option>
-                <option>In Progress</option>
-                <option>Completed</option>
+              <select 
+              name='status'
+              onChange={handleChange}
+              value={formData.status}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
+                <option value='Todo'>Todo</option>
+                <option value='In Progress'>In Progress</option>
+                <option value='Completed'>Completed</option>
               </select>
+              {formData.status}
             </div>
 
             {/* Submit Button */}
@@ -89,6 +152,9 @@ const Form = () => {
             </button>
           </form>
         </div>
+
+
+
     </>
   )
 }
