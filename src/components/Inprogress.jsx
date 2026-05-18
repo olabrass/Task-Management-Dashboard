@@ -1,13 +1,30 @@
 const Inprogress = ({tasks}) => {
+
+
+const getPriorityColor = (priority) => {
+  switch (priority) {
+    case "High":
+      return "bg-red-200 text-red-700";
+    case "Medium":
+      return "bg-yellow-200 text-yellow-700";
+    case "Low":
+      return "bg-green-200 text-green-700";
+    default:
+      return "bg-gray-200 text-gray-700";
+  }
+};
+
   const inProgressTasks = tasks.filter(
     (task) => task.status === "In Progress" 
+
+
   );
     return (
         <>
            <div className="bg-white rounded-2xl shadow-lg p-5">
             <div className="flex items-center justify-between mb-5">
               <h2 className="text-xl font-semibold text-gray-800">
-                In Progress
+                In Progress...
               </h2>
 
               <span className="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full">
@@ -31,7 +48,9 @@ const Inprogress = ({tasks}) => {
                     </p>
                   </div>
 
-                  <span className="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                  <span
+                    className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${getPriorityColor(task.priority)}`}
+                  >
                     {task.priority}
                   </span>
                 </div>

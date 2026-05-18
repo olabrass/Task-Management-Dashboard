@@ -1,5 +1,19 @@
 const Todo = ({ tasks }) => {
 
+const getPriorityColor = (priority) => {
+  switch (priority) {
+    case "High":
+      return "bg-red-200 text-red-700";
+    case "Medium":
+      return "bg-yellow-200 text-yellow-700";
+    case "Low":
+      return "bg-green-200 text-green-700";
+    default:
+      return "bg-gray-200 text-gray-700";
+  }
+};
+
+
   const todoTasks = tasks.filter(
     (task) => task.status === "Todo"
   );
@@ -43,9 +57,11 @@ const Todo = ({ tasks }) => {
                   </p>
                 </div>
 
-                <span className="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full whitespace-nowrap">
-                  {task.priority}
-                </span>
+                  <span
+                    className={`text-xs px-3 py-1 rounded-full whitespace-nowrap ${getPriorityColor(task.priority)}`}
+                  >
+                    {task.priority}
+                  </span>
 
               </div>
 

@@ -16,7 +16,19 @@ const handleChange = (e) => {
       ...formData,
   [e.target.name]: e.target.value
   })
+};
+
+const resetFormData = () => {
+  setFormData({
+          title:'',
+  description:'',
+  priority:'Low',
+  date:'',
+  status:'Todo'
+  })
 }
+;
+
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -50,7 +62,7 @@ const handleSubmit = (e) => {
               Add New Task
             </h2>
 
-            <button className="text-sm text-blue-600 hover:text-blue-800 font-medium transition">
+            <button onClick={resetFormData} className="text-sm text-blue-600 hover:text-blue-800 font-medium transition cursor-pointer">
               Clear Form
             </button>
           </div>
@@ -66,12 +78,12 @@ const handleSubmit = (e) => {
               <input
                 type="text"
                 name='title'
+                required
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Enter task title"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {formData.title}
             </div>
 
             {/* Description */}
@@ -84,11 +96,11 @@ const handleSubmit = (e) => {
                 name='description'
                 value={formData.description}
                 onChange={handleChange}
+                required
                 rows="4"
                 placeholder="Enter task description"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               ></textarea>
-              {formData.description}
             </div>
 
             {/* Priority */}
@@ -106,7 +118,6 @@ const handleSubmit = (e) => {
                 <option value='Medium'>Medium</option>
                 <option value='High'>High</option>
               </select>
-              {formData.priority}
             </div>
 
             {/* Due Date */}
@@ -122,7 +133,7 @@ const handleSubmit = (e) => {
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {formData.date}
+             
             </div>
 
             {/* Status */}
@@ -140,13 +151,12 @@ const handleSubmit = (e) => {
                 <option value='In Progress'>In Progress</option>
                 <option value='Completed'>Completed</option>
               </select>
-              {formData.status}
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition cursor-pointer"
             >
               Add Task
             </button>
